@@ -33,6 +33,8 @@ gem 'spring',        group: :development
 group :assets do
   gem 'jquery-rails'
   gem 'sass-rails', '~> 4.0.3'
+
+  gem 'rails-assets-bootstrap', '~> 2.3.2'
 end
 
 group :development, :test do
