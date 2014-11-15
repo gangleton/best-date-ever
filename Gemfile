@@ -29,13 +29,12 @@ gem 'spring',        group: :development
 # Use unicorn as the app server
 # gem 'unicorn'
 
-#
-group :assets do
-  gem 'jquery-rails'
-  gem 'sass-rails', '~> 4.0.3'
+#assets
+gem 'jquery-rails'
+gem 'sass-rails', '~> 4.0.3'
 
-  gem 'rails-assets-bootstrap', '~> 2.3.2'
-end
+gem 'haml-rails'
+
 
 group :development, :test do
   gem 'debugger'
