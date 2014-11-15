@@ -37,7 +37,8 @@ gem 'jquery-rails'
 gem 'sass-rails', '~> 4.0.3'
 
 gem 'haml-rails'
-
+gem 'rails-assets-underscore'
+gem 'rails-assets-backbone'
 
 group :development, :test do
   gem 'debugger'
