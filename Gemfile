@@ -28,6 +28,7 @@ gem 'spring',        group: :development
 
 gem 'mongoid'
 gem 'geocoder'
+gem 'smarter_csv'
 
 # Use unicorn as the app server
 # gem 'unicorn'
