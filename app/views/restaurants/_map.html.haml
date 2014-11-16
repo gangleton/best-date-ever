@@ -4,10 +4,10 @@
 %script{ type: "text/javascript", src: "http://maps.googleapis.com/maps/api/js" }
 
 :javascript
-  var map;
+  var map, infowindow;
 
   function init() {
-    map = new google.maps.Map(document.getElementById("map"), {
+    map = new google.maps.Map($("#map"), {
       center: {
         lat: 40.7259802,
         lng: -73.968023
@@ -16,6 +16,8 @@
       streetViewControl: false,
       mapTypeControl: false
     });
+
+    infowindow = new google.maps.InfoWindow();
 
     var osmMapLayer = new google.maps.ImageMapType({
       getTileUrl: function(coord, zoom) {
@@ -31,5 +33,25 @@
     map.mapTypes.set('MapBox',osmMapLayer);
 
     map.setMapTypeId('MapBox');
+
+    $.getJSON("/restaurants.json?lat=" + lat + "&lng=" + lng, function(data) {
+      console.log(data);
+      for (var r = 0; r < data.length; r++) {
+        loadRestaurant(data[r]);
+      }
+    });
   }
   init();
+
+  function loadRestaurant(restaurant) {
+    var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(restaurant.lat, restaurant.long),
+      map: map,
+      title: restaurant.score
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(restaurant.name);
+      infowindow.open(map, marker);
+    });
+  }
