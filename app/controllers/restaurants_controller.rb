@@ -5,6 +5,29 @@ class RestaurantsController < ApplicationController
   # GET /restaurants.json
   def index
     @restaurants = Restaurant.all
+
+    lat = params[:lat].to_f
+    long = params[:long].to_f
+
+    # Restaurant ??? where( geoNear( lat, lng ) )
+
+    # manually building area lat/lng values as opposed to using geo near
+    #(http://mongoid.org/en/mongoid/docs/querying.html)
+    north = lat + 0.03
+    south = lat - 0.03
+    east = long + 0.03
+    west = long - 0.03
+
+
+    @restaurants = Restaurant.where(:lat.gt => south, :lat.lt => north, :long.gt => west, :long.lt => east)
+
+    # @restaurants = Restaurant.find(params[:lat], params[:long])
+    respond_to do |format|
+      format.html
+      format.json { render text: @restaurants.to_json
+                    #except: [:id, :url]
+                  }
+    end
   end
 
   # GET /restaurants/1
