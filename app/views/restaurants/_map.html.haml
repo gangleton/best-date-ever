@@ -34,11 +34,16 @@
 
     map.setMapTypeId('MapBox');
 
-    $.getJSON("/restaurants.json?lat=" + lat + "&lng=" + lng, function(data) {
-      console.log(data);
-      for (var r = 0; r < data.length; r++) {
-        loadRestaurant(data[r]);
-      }
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var lat = position.coords.latitude;
+      var lng = position.coords.longitude;
+
+      $.getJSON("/restaurants.json?lat=" + lat + "&lng=" + lng, function(data) {
+        console.log(data);
+        for (var r = 0; r < data.length; r++) {
+          loadRestaurant(data[r]);
+        }
+      });
     });
   }
   init();
